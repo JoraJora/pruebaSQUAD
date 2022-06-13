@@ -4,7 +4,7 @@ from flask_restful import Api
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from flask_apispec.extension import FlaskApiSpec
-from apiSQUAD.resources.awesome import AwesomeAPI
+from resources.awesome import AwesomeAPI
 
 app = Flask(__name__)  # Flask app instance initiated
 api = Api(app)  # Flask restful wraps Flask app around it.

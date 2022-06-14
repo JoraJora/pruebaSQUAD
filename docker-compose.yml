@@ -1,27 +1,18 @@
 version: '3.8'
-services: 
-    dbSQL:
-        image: "mcr.microsoft.com/mssql/server"
-        environment:
-            SA_PASSWORD: "prueba2413*"
-            ACCEPT_EULA: "Y"
-        volumes:
-            - sqlvolume:/var/opt/mssql
-        ports:
-            - 1433:1433    
-    dbNOSQL:
+services:  
+    dbnosql:
         image: mongo:latest
         environment:
-            MONGO_INITDB_DATABASE: buzonapi
+            MONGO_INITDB_DATABASE: apisquad
             MONGO_INITDB_ROOT_PASSWORD: vagrant3
             MONGO_INITDB_ROOT_USERNAME: admin
         command: mongod --port 28108
         volumes:
-            - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+            - ./init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
             - ./mongo_backup:/data/backup
-            - mongodataBuzon:/data/db
+            - mongodataSquad:/data/db
         ports:
-            - "28108:28108"
+            - 28108:28108
     api-service:
         build: ./apiSQUAD/
         volumes: 
@@ -33,8 +24,5 @@ services:
             FLASK_DEBUG: 1
 
 volumes:
-  mongodataBuzon:
+  mongodataSquad:
     driver: local
-  sqlvolume:
-    driver: local
-

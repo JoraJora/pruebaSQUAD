@@ -4,13 +4,17 @@ from flask_restful import Api
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from flask_apispec.extension import FlaskApiSpec
-from resources.awesome import AwesomeAPI
+from resources.chistes import ChistesAPI, consultaAPI, consultaAPIPath
+from resources.numeric import sumAPI, mcmAPI
 
 app = Flask(__name__)  # Flask app instance initiated
-api = Api(app)  # Flask restful wraps Flask app around it.
+app.config['BUNDLE_ERRORS'] = True
+api = Api(app, catch_all_404s=True)  # Flask restful wraps Flask app around it.
+ 
+# Config Swagger
 app.config.update({
     'APISPEC_SPEC': APISpec(
-        title='Awesome Project',
+        title='Prueba SQUADMAKERS',
         version='v1',
         plugins=[MarshmallowPlugin()],
         openapi_version='2.0.0'
@@ -20,8 +24,17 @@ app.config.update({
 })
 docs = FlaskApiSpec(app)
 
-api.add_resource(AwesomeAPI, '/awesome')
-docs.register(AwesomeAPI)
+# Config endpoints
+api.add_resource(consultaAPI, '/consultachistes')
+api.add_resource(consultaAPIPath, '/consultachistes/<path>')
+api.add_resource(ChistesAPI, '/chistes')
+api.add_resource(sumAPI, '/sumauno/<int:number>')
+api.add_resource(mcmAPI, '/MCM')
+docs.register(consultaAPI)
+docs.register(consultaAPIPath)
+docs.register(ChistesAPI)
+docs.register(sumAPI)
+docs.register(mcmAPI)
 
 
 if __name__ == '__main__':

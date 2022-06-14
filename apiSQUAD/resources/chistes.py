@@ -20,8 +20,9 @@ client = MongoClient('mongodb://consultaSQUAD:consulta2413@dbnosql:28108/apisqua
 db = client.apisquad
 
 class chisteResponseSchema(Schema):
-    id = fields.Str(default='')
-    chiste = fields.Str(default='')
+    ID_repo = fields.Str(default='')
+    Chiste = fields.Str(default='')
+    Repo = fields.Str(default='')
 
 class mensajeResponseSchema(Schema):
     message = fields.Str(default='Success')
@@ -43,31 +44,28 @@ class consultaAPIPath(MethodResource, Resource):
 * Si tiene el valor “Chuck” se conseguirá el chiste de este API https://api.chucknorris.io
 * Si tiene el valor “Dad” se conseguirá del API https://icanhazdadjoke.com/api
 * En caso de que el valor no sea ninguno de esos dos se devolverá el error correspondiente""", tags=['Chistes'])
-    @marshal_with(mensajeResponseSchema)  # marshalling
+    @marshal_with(chisteResponseSchema)  # marshalling
     def get(self, path):
         '''
         Get method represents a GET API method
         '''
         if not path is None:
             auxConsulta = consultaChiste(path)            
-            if path.lower() in "chuck":
-                abort(400, "_>_<_ Entro Chunk %s"%str(auxConsulta.response.json()))
-            else:
-                abort(400, "_>_<_ Entro Dad %s"%str(auxConsulta.response.json()))
+            return auxConsulta.chiste
         else:
             abort(400, "_>_<_ (BAD Requests) se debe pasar 'Ckuck' o 'Dad' como parametro")
 
 class consultaAPI(MethodResource, Resource):
     @doc(description="""GET: Se devolverá un chiste aleatorio si no se pasa ningún path param.
                         Genera un chiste con probabilidad 0.5 entre Ckuck(https://api.chucknorris.io) y Dad (https://icanhazdadjoke.com/api)""", tags=['Chistes'])
-    @marshal_with(mensajeResponseSchema)  # marshalling
+    @marshal_with(chisteResponseSchema)  # marshalling
     def get(self):
         '''
         Get method represents a GET API method
         '''
         auxRandom = "chuck" if random() <= 0.5 else "dad"
         auxConsulta = consultaChiste(auxRandom)
-        return {'message': f'My response {auxConsulta.path} {str(auxConsulta.response.json())}'}
+        return auxConsulta.chiste
 
 #  Restful way of creating APIs through Flask Restful
 class ChistesAPI(MethodResource, Resource):

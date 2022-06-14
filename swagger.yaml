@@ -1,0 +1,160 @@
+definitions:
+  chisteResponse:
+    properties:
+      Chiste:
+        type: string
+      ID_repo:
+        type: string
+      Repo:
+        type: string
+    type: object
+  mensajeResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  numeric:
+    properties:
+      result:
+        type: integer
+    type: object
+info:
+  title: Prueba SQUADMAKERS
+  version: v1
+paths:
+  /MCM:
+    post:
+      description: |-
+        Endpoint al que se le pasará un query param llamado “numbers” 
+                con una lista de números enteros. La respuesta de este endpoint 
+                debe ser el mínimo común múltiplo de ellos
+      parameters:
+        - collectionFormat: multi
+          in: formData
+          items:
+            type: integer
+          name: numbers
+          required: true
+          type: array
+      responses:
+        default:
+          description: ''
+          schema:
+            $ref: '#/definitions/numeric'
+      tags:
+        - Numeric
+  /chistes:
+    delete:
+      description: elimina el chiste indicado en el parametro *number*
+      parameters:
+        - description: Ingrese el id del chiste
+          in: formData
+          name: _id
+          required: true
+          type: integer
+      responses:
+        '204':
+          description: ''
+          schema:
+            $ref: '#/definitions/mensajeResponse'
+      tags:
+        - Chistes
+    post:
+      description: >-
+        POST: guardará en una base de datos el chiste (texto pasado por
+        parámetro)
+      parameters:
+        - description: Chiste que desea guardar
+          in: formData
+          name: chiste
+          required: true
+          type: string
+      responses:
+        default:
+          description: ''
+          schema:
+            $ref: '#/definitions/mensajeResponse'
+      tags:
+        - Chistes
+    put:
+      description: >-
+        actualiza el chiste con el nuevo texto sustituyendo al chiste indicado
+        en el parámetro *number*
+      parameters:
+        - description: Ingrese el id del chiste
+          in: formData
+          name: _id
+          required: true
+          type: integer
+        - description: Chiste que desea actualizar
+          in: formData
+          name: chiste
+          required: true
+          type: string
+      responses:
+        default:
+          description: ''
+          schema:
+            $ref: '#/definitions/mensajeResponse'
+      tags:
+        - Chistes
+  /consultachistes:
+    get:
+      description: |-
+        GET: Se devolverá un chiste aleatorio si no se pasa ningún path param.
+                                Genera un chiste con probabilidad 0.5 entre Ckuck(https://api.chucknorris.io) y Dad (https://icanhazdadjoke.com/api)
+      parameters: []
+      responses:
+        default:
+          description: ''
+          schema:
+            $ref: '#/definitions/chisteResponse'
+      tags:
+        - Chistes
+  /consultachistes/{path}:
+    get:
+      description: >-
+        GET:
+
+        * Si se envía el path param habrá que comprobar si tiene el valor
+        “Chuck” o el valor “Dad”
+
+        * Si tiene el valor “Chuck” se conseguirá el chiste de este API
+        https://api.chucknorris.io
+
+        * Si tiene el valor “Dad” se conseguirá del API
+        https://icanhazdadjoke.com/api
+
+        * En caso de que el valor no sea ninguno de esos dos se devolverá el
+        error correspondiente
+      parameters:
+        - in: path
+          name: path
+          required: true
+          type: string
+      responses:
+        default:
+          description: ''
+          schema:
+            $ref: '#/definitions/chisteResponse'
+      tags:
+        - Chistes
+  /sumauno/{number}:
+    get:
+      description: |-
+        Endpoint al que se le pasará un query param llamado “number” 
+                con un número entero. La respuesta será ese número + 1
+      parameters:
+        - format: int32
+          in: path
+          name: number
+          required: true
+          type: integer
+      responses:
+        default:
+          description: ''
+          schema:
+            $ref: '#/definitions/numeric'
+      tags:
+        - Numeric
+swagger: 2.0.0

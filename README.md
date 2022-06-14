@@ -4,7 +4,8 @@ Repositorio para integración de servicios icanhazdadjoke y chucknorris
 Pasos para la integración del proyecto:
 
 * Definición de proyecto
-	- Definición de carpetas estandar de API usando flask-restful **(DONE)**https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure)
+	- Configuración de repositorio y configuración de clave SSH para usar github **(DONE)**
+	- Definición de carpetas estandar de API usando flask-restful **(DONE)** https://flask-restful.readthedocs.io/en/latest/intermediate-usage.html#project-structure)
 	- Configuración del proyecto para crea un Swagger para documentar el API **(DONE)**
 	- Definición de servicios de bases de datos que se van a usar **(DONE)**
 	
@@ -25,12 +26,26 @@ Pasos para la integración del proyecto:
 		- GET: Endpoint al que se le pasará un query param llamado “numbers” con una lista de números enteros. La  respuesta de este endpoint debe ser el mínimo común múltiplo de ellos. **(DONE)**
 		- GET: Endpoint al que se le pasará un query param llamado “number” con un número entero. La respuesta será ese número + 1. **(DONE)**
 * Crear pruebas unitarias. 
-* Construcción de archivo readme.md con la explicación 
+* Construcción de archivo readme.md con la explicación **(DONE)**
 
 
 # ¿ Cómo he ejecutado el proyecto?
 
-* 
+Para la elaboración de este proyecto se siguio las lista de requerimientos que se observa en el punto anterior, adicionalmente utilice un servidor local con las siguientes caracteristicas: 
+
+
+Este servidor esta usando la ip local, realice la configuración de las siguientes directorios: 
+
+
+Se definieron los siguientes servicios utilizando docker-compose: 
+
+
+
+Defini utilizar la libreria **flask_restful**, **flask_apispec** para generar la documentación 
+
+
+Con el Swagger automatico genere el .yml y sigui las instrucciones de este repo https://github.com/peter-evans/swagger-github-pages, de tal suerte que todos los endPoint quedaron documentados y se puede ver en 
+
 
 
 # Preguntas del punto 2 (¿Qué repositorio utilizarias?)
@@ -43,8 +58,8 @@ PostgreSQL, MariaDB, Casandra, MongoDB, ElasticSearch, Oracle, SQL Server.
 
 ## Crea la sentencia para crear la BBDD y el modelo de datos requeririas
 
-* La creación de la base de datos se puede ver en:  
-* Adicionalmente se personaliza el inicio de mongo db con la creción y configuración incial se puede ver en:
+* La creación y parametrización de la base de datos se puede ver en la configuración del docker: https://github.com/JoraJora/pruebaSQUAD/blob/main/docker-compose.yml  
+* Adicionalmente se personaliza el inicio de mongo db con la creción y configuración incial se puede ver en:  
 * Finalmente es utilizada y almacenado los chistes usando los endpoint que se pueden ver en: 
 
 ## Lo mismo que el punto anterior (si lo hiciste con SQL) pero para un repositorio noSQL

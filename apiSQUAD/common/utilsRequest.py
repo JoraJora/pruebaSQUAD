@@ -30,10 +30,20 @@ class consultaChiste:
         self.path = self._is_valid_path(path)
         self.response = chuckRandom() if path.lower() == 'chuck' else dadRandom()
 
+        # guardando chiste
+        if self.path == 'chuck':
+        	self.chiste = {'ID_repo': self.response.json()['id'], 
+        	               'Chiste': self.response.json()['value'],
+        	               'Repo': 'chucknorris.io'}
+        else:
+        	self.chiste = {'ID_repo': self.response.json()['id'], 
+        	               'Chiste': self.response.json()['joke'], 
+        	               'Repo': 'icanhazdadjoke'}
+
     def _is_valid_path(self, path):
         if not path.lower() in ["chuck", "dad"]:
             abort(400, "_>_<_ (BAD Requests) se debe pasar 'Ckuck' o 'Dad' como parametro")
-        return path
+        return path.lower()
 
 
 

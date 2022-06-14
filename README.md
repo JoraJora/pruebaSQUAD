@@ -33,11 +33,11 @@ Pasos para la integración del proyecto:
 
 Para la elaboración de este proyecto se siguio las lista de requerimientos que se observa en el punto anterior, adicionalmente utilice un servidor local con las siguientes caracteristicas: 
 
- ![Servidor](/screenshots/Captura_server.PNG?raw=true)
+![Servidor](/screenshots/Captura_server.PNG?raw=true)
 
 Este servidor esta usando la ip local http://192.168.90.40/, realice la construcción de los siguientes directorios: 
 
-![Servidor](/screenshots/Captura_carpetas.PNG?raw=true)
+![Carpetas](/screenshots/Captura_carpetas.PNG?raw=true)
 
 
 Se definieron los siguientes servicios utilizando docker-compose: 

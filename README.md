@@ -33,11 +33,11 @@ Pasos para la integración del proyecto:
 
 Para la elaboración de este proyecto se siguio las lista de requerimientos que se observa en el punto anterior, adicionalmente utilice un servidor local con las siguientes caracteristicas: 
 
-** Falta imagen del servidor **
+ ![Servidor](/screenshots/Captura_server.PNG?raw=true)
 
 Este servidor esta usando la ip local http://192.168.90.40/, realice la construcción de los siguientes directorios: 
 
-** Falta imagen de directorios **
+![Servidor](/screenshots/Captura_carpetas.PNG?raw=true)
 
 
 Se definieron los siguientes servicios utilizando docker-compose: 
@@ -107,15 +107,17 @@ Defini utilizar la libreria **flask_restful** para la definición de los enpoint
 
 PostgreSQL, MariaDB, Casandra, MongoDB, ElasticSearch, Oracle, SQL Server.
 
+**Respuesta**: Decidí utilizar MongoDB dado el siguiente ranking de bases de datos no relacionales (https://db-engines.com/en/ranking/document+store), en este ranking se mide, entre otras cosas, el número de menciones del sistema sobre los sitios web, por esta razón es casi probable que cualquier dificultad pueda ser encontrada en los foros y hace un poco más ágil el desarrollo. Sin embargo, considero que la elección depende del ambiente de desarrollo en el que se esté trabajando es muy probable, por ejemplo, que si el cliente tiene Azure uno termine usando CosmoDB.
+
 ## Razona tú respuesta.
 
-* Utilizaria una base de datos noSQL debido a que las dos fuentes de datos (Chuck y Dad) son heterogeneas, es decir los campos no son iguales, adicionalmente puede ser que exista más de una categoria 
+* Utilizaría una base de datos NoSQL debido a que las dos fuentes de datos (Chuck y Dad) son heterogéneas, es decir los campos no son iguales, adicionalmente puede ser que exista más de una categoría y/o existan campos que sea mejor guardarlos como tipo lista. 
 
 ## Crea la sentencia para crear la BBDD y el modelo de datos requeririas
 
 * La creación y parametrización de la base de datos se puede ver en la configuración del docker: https://github.com/JoraJora/pruebaSQUAD/blob/main/docker-compose.yml  
-* Adicionalmente se personaliza el inicio de mongo db con la creción y configuración incial se puede ver en:  
-* Finalmente es utilizada y almacenado los chistes usando los endpoint que se pueden ver en: 
+* Adicionalmente se personaliza el inicio de mongo db con la creación y configuración inicial se puede ver en:  https://github.com/JoraJora/pruebaSQUAD/blob/main/init-mongo.js
+* Finalmente es consultada y almacenada usando los endpoint que se pueden ver en: https://github.com/JoraJora/pruebaSQUAD/blob/main/apiSQUAD/resources/chistes.py
 
 ## Lo mismo que el punto anterior (si lo hiciste con SQL) pero para un repositorio noSQL
 

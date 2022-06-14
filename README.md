@@ -33,19 +33,74 @@ Pasos para la integración del proyecto:
 
 Para la elaboración de este proyecto se siguio las lista de requerimientos que se observa en el punto anterior, adicionalmente utilice un servidor local con las siguientes caracteristicas: 
 
+** Falta imagen del servidor **
 
-Este servidor esta usando la ip local, realice la configuración de las siguientes directorios: 
+Este servidor esta usando la ip local http://192.168.90.40/, realice la construcción de los siguientes directorios: 
+
+** Falta imagen de directorios **
 
 
 Se definieron los siguientes servicios utilizando docker-compose: 
 
+```yaml
+version: '3.8'
+services:  
+    dbnosql:
+        image: mongo:latest
+        environment:
+            MONGO_INITDB_DATABASE: apisquad
+            MONGO_INITDB_ROOT_PASSWORD: vagrant3
+            MONGO_INITDB_ROOT_USERNAME: admin
+        command: mongod --port 28108
+        volumes:
+            - ./init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+            - ./mongo_backup:/data/backup
+            - mongodataSquad:/data/db
+        ports:
+            - 28108:28108
+    api-service:
+        build: ./apiSQUAD/
+        volumes: 
+            - ./apiSQUAD/:/usr/src/app/
+        ports: 
+            - 5004:5004
+        environment: 
+            PORT: 5004
+            FLASK_DEBUG: 1
+
+volumes:
+  mongodataSquad:
+    driver: local
+```
+
+La siguiente fue la configuración del `Dockerfile` del servicio **api-service**:
+
+```
+FROM python:latest
+RUN mkdir /usr/src/app/
+COPY . /usr/src/app/
+WORKDIR /usr/src/app/
+
+EXPOSE 5004
+RUN pip install --upgrade pip
+RUN pip3 install -r requirements.txt
+
+CMD ["python", "app.py"]
+```
+
+Con los siguientes paquetes definidos en el `requirements`: 
+
+```
+Flask
+Flask-PyMongo
+requests
+flask-restful
+flask-apispec==0.11.0
+invoke
+```
 
 
-Defini utilizar la libreria **flask_restful**, **flask_apispec** para generar la documentación 
-
-
-Con el Swagger automatico genere el .yml y sigui las instrucciones de este repo https://github.com/peter-evans/swagger-github-pages, de tal suerte que todos los endPoint quedaron documentados y se puede ver en 
-
+Defini utilizar la libreria **flask_restful** para la definición de los enpoints de la API, **flask_apispec** para generar la documentación en Swagger(el cual se puede ver en https://jorajora.github.io/pruebaSQUAD/) y adicionalmente utilic el paquete **pymongo** para conectarme a la base de datos de MongoDB que desplegue para el proyecto.
 
 
 # Preguntas del punto 2 (¿Qué repositorio utilizarias?)

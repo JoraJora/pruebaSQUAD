@@ -1,6 +1,0 @@
-Flask
-Flask-PyMongo
-requests
-flask-restful
-flask-apispec==0.11.0
-invoke
